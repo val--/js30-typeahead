@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a repo</li>
+      <li>or a user</li>
+    </ul>
+  </form>
+<script>
+const gitReposJson = 'https://api.github.com/search/repositories';
+
+const repositories = [];
+
+/*fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => repositories.push(...data));
+
+function findMatches(wordToMatch, repositories) {
+  return repositories.filter(repo => {
+    return repo
+  });
+}*/
+
+
+function displayMatches() {
+  const matchArray = fetch(gitReposJson+'?q='+this.value)  
+  .then(  
+    function(response) {  
+      if (response.status !== 200) {  
+        console.log('Looks like there was a problem. Status Code: ' +  
+          response.status);  
+        return;  
+      }
+
+      // Examine the text in the response  
+      response.json().then(function(data) {  
+        console.log(data);  
+      });  
+    }  
+  )  
+  .catch(function(err) {  
+    console.log('Fetch Error :-S', err);  
+  });
+  
+  suggestions.innerHTML = 'test'
+}
+
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+
+</script>
+  </body>
+</html>
